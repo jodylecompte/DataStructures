@@ -14,7 +14,7 @@ public class NodeTest
     {
         Node<int> node = new Node<int>(5);
 
-        Assert.That(node.value, Is.EqualTo(5));
+        Assert.That(node.Value, Is.EqualTo(5));
     }
 
     [Test]
@@ -22,6 +22,15 @@ public class NodeTest
     {
         Node<String> node = new Node<String>("Jody");
 
-        Assert.That(node.value, Is.EqualTo("Jody"));
+        Assert.That(node.Value, Is.EqualTo("Jody"));
+    }
+
+    [Test]
+    public void Should_Have_Null_Next_And_Prev_References()
+    {
+        Node<String> node = new Node<String>("Jody");
+
+        Assert.That(node.Next, Is.EqualTo(null));
+        Assert.That(node.Prev, Is.EqualTo(null));
     }
 }
