@@ -53,4 +53,27 @@ public class LinkedListTest
         Assert.That(list.Last, Is.EqualTo(null));
         Assert.That(list.Count, Is.EqualTo(0));
     }
+
+    //[Test]
+    //public void Should_Throw_Exception_On_Copy_With_Negative_Index()
+    //{
+    //    LinkedList<int> list = new LinkedList<int>(5);
+    //    int[] arr 
+    //    Assert.Throws<Exception>(() =>
+    //    {
+         
+    //    });
+    //}
+
+    //[Test]
+    //public void Should_Throw_Exception_On_Copy_With_Null_Array()
+    //{
+
+    //}
+
+    //[Test]
+    //public void Should_Throw_Exception_On_Copy_With_Insufficient_Array_Size()
+    //{
+
+    //}
 }

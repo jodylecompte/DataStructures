@@ -61,6 +61,14 @@ namespace data_structures
 
         }
 
+        /// <summary>
+        /// Copies the entire LinkedList<T> to a compatible one-dimensional Array, starting at the specified index of the target array.
+        /// </summary>
+        /// <param name="array">The one-dimensional Array that is the destination of the elements copied from LinkedList<T>. The Array must have zero-based indexing.</param>
+        /// <param name="index">The zero-based index in array at which copying begins.</param>
+        /// <exception cref="ArgumentNullException">Array is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Index less than zero</exception>
+        /// <exception cref="ArgumentException">Array has insufficent length</exception>
         public void CopyTo(T[] array, int index)
         {
             if(array == null)
