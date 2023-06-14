@@ -172,6 +172,27 @@ public class LinkedListTest
 
     /*
     * ****************************************
+    * Clear() Method Tests
+    * ****************************************
+    */
+    [Test]
+    public void Should_Return_Valid_Bool_On_Contains_Value()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        list.AddFirst(10);
+        list.AddFirst(15);
+        list.AddFirst(20);
+
+        Assert.That(list.Contains(10), Is.EqualTo(true));
+        Assert.That(list.Contains(20), Is.EqualTo(true));
+
+        Assert.That(list.Contains(100), Is.EqualTo(false));
+        Assert.That(list.Contains(1000), Is.EqualTo(false));
+    }
+
+    /*
+    * ****************************************
     * CopyTo() Method Tests
     * ****************************************
     */

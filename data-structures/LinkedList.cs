@@ -138,9 +138,26 @@ namespace data_structures
             this.Count = 0;
         }
 
-        public void Contains()
+        /// <summary>
+        /// Determines whether a value is in the LinkedList<T>.
+        /// </summary>
+        /// <param name="value">The value to locate in the LinkedList<T>. The value can be null for reference types.</param>
+        /// <returns>true if value is found in the LinkedList<T>; otherwise, false.</returns>
+        public bool Contains(T value)
         {
+            Node<T> iter = this.First;
 
+            while(iter != null)
+            {
+                if (EqualityComparer<T>.Default.Equals(iter.Value, value))
+                {
+                    return true;
+                }
+
+                iter = iter.Next;
+            }
+
+            return false;
         }
 
         /// <summary>
