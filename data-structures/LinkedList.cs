@@ -52,7 +52,7 @@ namespace data_structures
         /// </summary>
         /// <param name="node">The new Node<T> to add at the start of the LinkedList<T>.</param>
         /// <exception cref="ArgumentNullException">Node is null</exception>
-        public void AddFirst(Node<T> node)
+        public Node<T> AddFirst(Node<T> node)
         {
             if(node == null)
             {
@@ -80,6 +80,7 @@ namespace data_structures
             }
 
             this.Count++;
+            return node;
         }
 
         public void AddLast()
