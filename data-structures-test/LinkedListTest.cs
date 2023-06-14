@@ -102,6 +102,59 @@ public class LinkedListTest
 
     /*
     * ****************************************
+    * AddLast() Method Tests
+    * ****************************************
+    */
+    [Test]
+    public void Should_Append_On_AddLast()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        list.AddLast(new Node<int>(10));
+        list.AddLast(new Node<int>(15));
+
+        // Ensure First and Last are different references now
+        Assert.That(list.Count, Is.EqualTo(3));
+        Assert.That(list.First, Is.Not.EqualTo(list.Last));
+
+        //// Assert that the chains next references are intact
+        Assert.That(list.First.Value, Is.EqualTo(5));
+        Assert.That(list.First.Next.Value, Is.EqualTo(10));
+        Assert.That(list.First.Next.Next.Value, Is.EqualTo(15));
+
+        //// Assert that the chain's prev references are intact
+        Assert.That(list.Last.Value, Is.EqualTo(15));
+        Assert.That(list.Last.Prev.Value, Is.EqualTo(10));
+        Assert.That(list.Last.Prev.Prev.Value, Is.EqualTo(5));
+    }
+
+    [Test]
+    public void Should_Create_Node_And_Append_On_AddLast_Overload()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        list.AddLast(16);
+        list.AddLast(32);
+
+        Assert.That(list.First.Value, Is.EqualTo(5));
+        Assert.That(list.First.Next.Value, Is.EqualTo(16));
+        Assert.That(list.First.Next.Next.Value, Is.EqualTo(32));
+    }
+
+
+    [Test]
+    public void Should_Throw_Exception_On_AddLast_With_Null_Node()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+            list.AddFirst(null);
+        });
+    }
+
+    /*
+    * ****************************************
     * Clear() Method Tests
     * ****************************************
     */

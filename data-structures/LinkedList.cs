@@ -83,9 +83,49 @@ namespace data_structures
             return node;
         }
 
-        public void AddLast()
+        /// <summary>
+        /// Adds a new node containing the specified value at the end of the LinkedList<T>.
+        /// </summary>
+        /// <param name="value">The value to add at the end of the LinkedList<T>.</param>
+        public void AddLast(T value)
         {
+            Node<T> node = new Node<T>(value);
+            this.AddLast(node);
+        }
 
+        /// <summary>
+        /// Adds the specified new node at the end of the LinkedList<T>.
+        /// </summary>
+        /// <param name="node">The new Node<T> to add at the end of the LinkedList<T>.</param>
+        /// <returns>The new LinkedListNode<T> containing value.</returns>
+        /// <exception cref="ArgumentNullException">Node is null</exception>
+        public Node<T> AddLast(Node<T> node)
+        {
+            if (node == null)
+            {
+                throw new ArgumentNullException(nameof(node), "Node is null");
+            }
+
+            if (this.First == null)
+            {
+                this.First = node;
+                this.Last = node;
+            }
+            else if (this.First != null && this.First == this.Last)
+            {
+                this.Last = node;
+                this.First.Next = node;
+                this.Last.Prev = this.First;
+            }
+            else
+            {
+                node.Prev = this.Last;
+                this.Last.Next = node;
+                this.Last = node;
+            }
+
+            this.Count++;
+            return node;
         }
 
         /// <summary>
