@@ -23,7 +23,7 @@ namespace data_structures
 
         public void AddAfter(T value)
         {
-
+          
         }
 
         public void AddAfter(Node<T> node)
@@ -36,9 +36,50 @@ namespace data_structures
 
         }
 
-        public void AddFirst()
+        /// <summary>
+        /// Adds a new node containing the specified value at the start of the LinkedList<T>.
+        /// </summary>
+        /// <param name="value">The value to add at the start of the LinkedList<T>.</param>
+        public void AddFirst(T value)
         {
+            Node<T> node = new Node<T>(value);
 
+            this.AddFirst(node); 
+        }
+
+        /// <summary>
+        /// Adds the specified new node at the start of the LinkedList<T>.
+        /// </summary>
+        /// <param name="node">The new Node<T> to add at the start of the LinkedList<T>.</param>
+        /// <exception cref="ArgumentNullException">Node is null</exception>
+        public void AddFirst(Node<T> node)
+        {
+            if(node == null)
+            {
+                throw new ArgumentNullException(nameof(node), "Node is null");
+            }
+
+            if(this.First == null)
+            {
+                this.First = node;
+                this.Last = node;
+            } else if(this.First != null && this.First == this.Last)
+            {
+                Node<T> temp = this.First;
+
+                this.First = node;
+                this.Last = temp;
+
+                this.First.Next = temp;
+                this.Last.Prev = node;
+            } else
+            {
+                node.Next = this.First;
+                this.First = node;
+                this.First.Next.Prev = node;
+            }
+
+            this.Count++;
         }
 
         public void AddLast()
