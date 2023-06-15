@@ -21,14 +21,46 @@ namespace data_structures
             this.Count++;
         }
 
-        public void AddAfter(T value)
+        public void AddAfter(Node<T> node, T value)
         {
-          
+            if (node == null)
+            {
+                throw new ArgumentNullException(nameof(node), "Node is null");
+            }
+
+            Node<T> newNode = new Node<T>(value);
+            this.AddAfter(node, newNode);
         }
 
-        public void AddAfter(Node<T> node)
+        public Node<T> AddAfter(Node<T> node, Node<T> newNode)
         {
+            if (node == null)
+            {
+                throw new ArgumentNullException(nameof(node), "Node is null");
+            }
 
+            if (newNode == null)
+            {
+                throw new ArgumentNullException(nameof(newNode), "New node is null");
+            }
+
+            // Edge case -- if list only has one item and target is head of list
+            if(this.First == this.Last && this.First == node)
+            {
+                this.First.Next = newNode;
+                newNode.Prev = this.First;
+                this.Last = newNode;
+                
+
+                this.Count++;
+                return node;
+            } else
+            {
+
+            }
+
+                           
+            throw new InvalidOperationException("Node does not belong to the linked list");
         }
 
         public void AddBefore()
@@ -197,14 +229,48 @@ namespace data_structures
             }
         }
 
-        public void FindLast()
+        /// <summary>
+        /// Finds the first node that contains the specified value.
+        /// </summary>
+        /// <param name="value">The value to locate in the LinkedList<T>.</param>
+        /// <returns>The first Node<T> that contains the specified value, if found; otherwise, null.</returns>
+        public Node<T> Find(T value)
         {
+            Node<T> iter = this.First;
 
+            while (iter != null)
+            {
+                if (EqualityComparer<T>.Default.Equals(iter.Value, value))
+                {
+                    return iter;
+                }
+
+                iter = iter.Next;
+            }
+
+            return null;
         }
 
-        public void GetEnumerator()
+        /// <summary>
+        /// Finds the last node that contains the specified value.
+        /// </summary>
+        /// <param name="value">The value to locate in the LinkedList<T>.</param>
+        /// <returns>The last LinkedListNode<T> that contains the specified value, if found; otherwise, null.</returns>
+        public Node<T> FindLast(T value)
         {
+            Node<T> iter = this.Last;
 
+            while(iter != null)
+            {
+                if (EqualityComparer<T>.Default.Equals(iter.Value, value))
+                {
+                    return iter;
+                }
+
+                iter = iter.Prev;
+            }
+
+            return null;
         }
 
         public void Remove()

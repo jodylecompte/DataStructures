@@ -49,6 +49,89 @@ public class LinkedListTest
 
     /*
     * ****************************************
+    * AddAfter() Method Tests
+    * ****************************************
+    */
+    [Test]
+    public void Should_Add_New_Node_With_Value_On_AddAfter_For_Fresh_List()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        list.AddAfter(list.First, 10);
+
+        Assert.That(list.First, Is.Not.EqualTo(list.Last));
+
+        Assert.That(list.First.Value, Is.EqualTo(5));
+        Assert.That(list.Last.Value, Is.EqualTo(10));
+
+        Assert.That(list.First.Next.Value, Is.EqualTo(10));
+        Assert.That(list.Last.Prev.Value, Is.EqualTo(5));
+    }
+
+    [Test]
+    public void Should_Add_New_Node_After_Target_Node_On_AddAfter()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        Node<int> targetNode = new Node<int>(20);
+        Node<int> newNode = new Node<int>(75);
+
+        list.AddLast(25);
+        list.AddAfter(targetNode, newNode);
+        list.AddLast(35);
+
+        //Assert.That(list.First, Is.Not.EqualTo(list.Last));
+
+        // Ensure forward references are intact
+        //Assert.That(list.First.Value, Is.EqualTo(5));
+        //Assert.That(list.Last.Value, Is.EqualTo(10));
+
+        // Ensure backward references are intact
+        //Assert.That(list.First.Next.Value, Is.EqualTo(10));
+        //Assert.That(list.Last.Prev.Value, Is.EqualTo(5));
+    }
+
+    [Test]
+    public void Should_Throw_Exception_On_AddAfter_When_Node_Is_Null()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+        Node<int> newNode = new Node<int>(10);
+
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+            list.AddAfter(null, newNode);
+        });
+    }
+
+    [Test]
+    public void Should_Throw_Exception_On_AddAfter_When_NewNode_Is_Null()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+        Node<int> targetNode = new Node<int>(10);
+
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+            list.AddAfter(targetNode, null);
+        });
+    }
+
+    [Test]
+    public void Should_Throw_Exception_On_AddAfter_When_Node_Is_Not_In_List()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        Node<int> targetNode = new Node<int>(10);
+        Node<int> newNode = new Node<int>(15);
+
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            list.AddAfter(targetNode, newNode);
+        });
+    }
+
+    
+    /*
+    * ****************************************
     * AddFirst() Method Tests
     * ****************************************
     */
@@ -172,7 +255,7 @@ public class LinkedListTest
 
     /*
     * ****************************************
-    * Clear() Method Tests
+    * Contains() Method Tests
     * ****************************************
     */
     [Test]
@@ -269,5 +352,69 @@ public class LinkedListTest
         Assert.That(newArray[5], Is.EqualTo(15));
         Assert.That(newArray[6], Is.EqualTo(10));
         Assert.That(newArray[7], Is.EqualTo(5));
+    }
+
+    /*
+    * ****************************************
+    * Find() Method Tests
+    * ****************************************
+    */
+    [Test]
+    public void Should_Return_First_Result_On_Valid()
+    {
+        LinkedList<int> list = new LinkedList<int>();
+
+        Node<int> nodeOne = new Node<int>(5);
+        Node<int> nodeTwo = new Node<int>(5);
+
+        list.AddLast(nodeOne);
+        list.AddLast(nodeTwo);
+
+        Node<int> found = list.Find(5);
+
+        Assert.That(found, Is.EqualTo(nodeOne));
+        Assert.That(found, Is.Not.EqualTo(nodeTwo));
+        Assert.That(found.Value, Is.EqualTo(5));
+    }
+
+    public void Should_Return_Null_On_Invalid_Find()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        Node<int> found = list.Find(51);
+
+        Assert.That(found, Is.EqualTo(null));
+    }
+
+    /*
+    * ****************************************
+    * FindLast() Method Tests
+    * ****************************************
+    */
+    [Test]
+    public void Should_Return_Last_Result_On_Valid_FindLast()
+    {
+        LinkedList<int> list = new LinkedList<int>();
+
+        Node<int> nodeOne = new Node<int>(5);
+        Node<int> nodeTwo = new Node<int>(5);
+
+        list.AddLast(nodeOne);
+        list.AddLast(nodeTwo);
+
+        Node<int> found = list.FindLast(5);
+
+        Assert.That(found, Is.EqualTo(nodeTwo));
+        Assert.That(found, Is.Not.EqualTo(nodeOne));
+        Assert.That(found.Value, Is.EqualTo(5));
+    }
+
+    public void Should_Return_Null_On_Invalid_FindLast()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        Node<int> found = list.FindLast(51);
+
+        Assert.That(found, Is.EqualTo(null));
     }
 }
