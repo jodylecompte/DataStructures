@@ -10,10 +10,17 @@ namespace data_structures
         public Node<T> First;
         public Node<T> Last;
 
+        /// <summary>
+        /// Initializes an emoty LinkedList
+        /// </summary>
         public LinkedList()
         {
         }
 
+        /// <summary>
+        /// Initialize a new LinkedList with value
+        /// </summary>
+        /// <param name="value">Value to create first node</param>
         public LinkedList(T value)
         {
             Node<T> node = new Node<T>(value);
@@ -22,6 +29,12 @@ namespace data_structures
             this.Count++;
         }
 
+        /// <summary>
+        /// Adds a new node containing the specified value after the specified existing node in the LinkedList<T>.
+        /// </summary>
+        /// <param name="node">The LinkedListNode<T> after which to insert a new LinkedListNode<T> containing value.</param>
+        /// <param name="value">The value to add to the LinkedList<T>.</param>
+        /// <exception cref="ArgumentNullException">Node is null</exception>
         public void AddAfter(Node<T> node, T value)
         {
             if (node == null)
@@ -33,6 +46,14 @@ namespace data_structures
             this.AddAfter(node, newNode);
         }
 
+        /// <summary>
+        /// Adds the specified new node after the specified existing node in the LinkedList<T>.
+        /// </summary>
+        /// <param name="node">The LinkedListNode<T> after which to insert newNode.</param>
+        /// <param name="newNode">The new LinkedListNode<T> to add to the LinkedList<T>.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Node is null</exception>
+        /// <exception cref="InvalidOperationException">node is not in the current LinkedList<T>.</exception>
         public Node<T> AddAfter(Node<T> node, Node<T> newNode)
         {
             if (node == null)
@@ -86,13 +107,25 @@ namespace data_structures
             throw new InvalidOperationException("Node does not belong to the linked list");
         }
 
-
+        /// <summary>
+        /// Adds a new node containing the specified value before the specified existing node in the LinkedList<T>.<T>.
+        /// </summary>
+        /// <param name="node">The LinkedListNode<T> before which to insert newNode.</param>
+        /// <param name="value">The new LinkedListNode<T> to add to the LinkedList<T>.</param>
         public void AddBefore(Node<T> node, T value)
         {
             Node<T> newNode = new Node<T>(value);
             this.AddBefore(node, newNode);
         }
 
+        /// <summary>
+        /// Adds the specified new node before the specified existing node in the LinkedList<T>.
+        /// </summary>
+        /// <param name="node">The LinkedListNode<T> before which to insert newNode.</param>
+        /// <param name="newNode">The new LinkedListNode<T> to add to the LinkedList<T>.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">Node is null or new node is null</exception>
+        /// <exception cref="InvalidOperationException">Node is not in the current linked list</exception>
         public Node<T> AddBefore(Node<T> node, Node<T> newNode)
         {
             if (node == null)
@@ -343,6 +376,11 @@ namespace data_structures
             return null;
         }
 
+        /// <summary>
+        /// Removes the first occurrence of the specified value from the LinkedList<T>.
+        /// </summary>
+        /// <param name="value">The value to remove from the LinkedList<T>.</param>
+        /// <returns>true if the element containing value is successfully removed; otherwise, false. This method also returns false if value was not found in the original LinkedList<T>.</returns>
         public bool Remove(T value)
         {
             if (this.Count == 1)
@@ -372,6 +410,12 @@ namespace data_structures
             return false;
         }
 
+        /// <summary>
+        /// Removes the specified node from the LinkedList<T>.
+        /// </summary>
+        /// <param name="node">The LinkedListNode<T> to remove from the LinkedList<T>.</param>
+        /// <exception cref="ArgumentNullException">node is null</exception>
+        /// <exception cref="InvalidOperationException">node is not in the current LinkedList<T>.</exception>
         public void Remove(Node<T> node)
         {
             if (node == null)
@@ -427,6 +471,10 @@ namespace data_structures
             throw new InvalidOperationException("Node does not exist in LinkedList");
         }
 
+        /// <summary>
+        /// Removes the node at the start of the LinkedList<T>.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">The LinkedList<T> is empty.</exception>
         public void RemoveFirst()
         {
             if(this.Count == 0)
@@ -444,6 +492,10 @@ namespace data_structures
             }
         }
 
+        /// <summary>
+        /// Removes the node at the end of the LinkedList<T>.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">The LinkedList<T> is empty.</exception>
         public void RemoveLast()
         {
             if (this.Count == 0)
