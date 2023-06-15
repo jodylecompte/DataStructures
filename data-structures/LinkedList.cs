@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace data_structures
 {
@@ -342,9 +343,88 @@ namespace data_structures
             return null;
         }
 
-        public void Remove()
+        public bool Remove(T value)
         {
+            if (this.Count == 1)
+            {
+                this.First = null;
+                this.Last = null;
 
+                this.Count--;
+            }
+            else
+            {
+                Node<T> iter = this.First;
+                while (iter != null)
+                {
+                    if (EqualityComparer<T>.Default.Equals(iter.Value, value))
+                    {
+                        iter.Prev.Next = iter.Next;
+
+                        this.Count--;
+                        return true;
+                    }
+
+                    iter = iter.Next;
+                }
+            }
+
+            return false;
+        }
+
+        public void Remove(Node<T> node)
+        {
+            if (node == null)
+            {
+                throw new ArgumentNullException("Node is null");
+            }
+
+            if (this.First == null)
+            {
+                throw new InvalidOperationException("List is empty");
+            }
+
+            if (this.First == node)
+            {
+                if (this.First == this.Last)
+                {
+                    this.First = null;
+                    this.Last = null;
+                }
+                else
+                {
+                    this.First = this.First.Next;
+                    this.First.Prev = null;
+                }
+
+                this.Count--;
+                return;
+            }
+
+            Node<T> iter = this.First.Next;
+            while (iter != null)
+            {
+                if (iter == node)
+                {
+                    if (iter == this.Last)
+                    {
+                        this.Last = iter.Prev;
+                        this.Last.Next = null;
+                    }
+                    else
+                    {
+                        iter.Prev.Next = iter.Next;
+                        iter.Next.Prev = iter.Prev;
+                    }
+
+                    this.Count--;
+                    return;
+                }
+
+                iter = iter.Next;
+            }
+
+            throw new InvalidOperationException("Node does not exist in LinkedList");
         }
 
         public void RemoveFirst()

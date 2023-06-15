@@ -524,6 +524,51 @@ public class LinkedListTest
     * Remove() Method Tests
     * ****************************************
     */
+    [Test]
+    public void Should_Empty_List_On_Remove_With_Single_Item()
+    {
+        LinkedList<int> list = new LinkedList<int>();
+
+        Node<int> target = new Node<int>(10);
+        list.AddLast(target);
+        list.Remove(target);
+
+        Assert.IsNull(list.First);
+        Assert.IsNull(list.Last);
+    }
+
+    [Test]
+    public void Should_Empty_List_On_Remove_Overload_With_Single_Item()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        list.Remove(5);
+
+        Assert.IsNull(list.First);
+        Assert.IsNull(list.Last);
+    }
+
+    [Test]
+    public void Should_Throw_Error_On_Remove_If_Null_Node()
+    {
+        LinkedList<int> list = new LinkedList<int>();
+
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+            list.Remove(null);
+        });
+    }
+
+    [Test] 
+    public void Should_Throw_Error_On_Remove_If_Node_Not_In_List()
+    {
+        LinkedList<int> list = new LinkedList<int>();
+
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            list.Remove(new Node<int>(10));
+        });
+    }
     /*
     * ****************************************
     * RemoveFirst() Method Tests
