@@ -490,6 +490,8 @@ namespace data_structures
             {
                 this.First = this.First.Next;
             }
+
+            this.Count--;
         }
 
         /// <summary>
@@ -512,6 +514,8 @@ namespace data_structures
             {
                 this.Last = this.Last.Prev;
             }
+
+            this.Count--;
         }
     }
 }
