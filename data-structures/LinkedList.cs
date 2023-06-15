@@ -349,12 +349,37 @@ namespace data_structures
 
         public void RemoveFirst()
         {
+            if(this.Count == 0)
+            {
+                throw new InvalidOperationException("Linked list is empty");
+            }
 
+            if(this.First == this.Last)
+            {
+                this.First = null;
+                this.Last = null;
+            } else
+            {
+                this.First = this.First.Next;
+            }
         }
 
         public void RemoveLast()
         {
+            if (this.Count == 0)
+            {
+                throw new InvalidOperationException("Linked list is empty");
+            }
 
+            if (this.First == this.Last)
+            {
+                this.First = null;
+                this.Last = null;
+            }
+            else
+            {
+                this.Last = this.Last.Prev;
+            }
         }
     }
 }

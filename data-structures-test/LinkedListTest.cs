@@ -518,4 +518,94 @@ public class LinkedListTest
 
         Assert.That(found, Is.EqualTo(null));
     }
+
+    /*
+    * ****************************************
+    * Remove() Method Tests
+    * ****************************************
+    */
+    /*
+    * ****************************************
+    * RemoveFirst() Method Tests
+    * ****************************************
+    */
+    [Test]
+    public void Should_Remove_First_Item_In_List_If_NonEmpty()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        list.AddLast(10);
+        list.AddLast(15);
+
+        list.RemoveFirst();
+
+        Assert.AreEqual(list.First.Value, 10);
+        Assert.AreEqual(list.First.Next.Value, 15);
+        Assert.AreEqual(list.Last.Prev.Value, 10);
+        Assert.AreEqual(list.Last.Value, 15);
+    }
+
+    [Test]
+    public void Should_Remove_First_Item_In_List_If_Only_Head()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        list.RemoveFirst();
+
+        Assert.IsNull(list.First);
+        Assert.IsNull(list.Last);
+    }
+
+    [Test]
+    public void Should_Throw_Error_On_RemoveFirst_If_Empty()
+    {
+        LinkedList<int> list = new LinkedList<int>();
+
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            list.RemoveFirst();
+        });
+    }
+    /*
+    * ****************************************
+    * RemoveLast() Method Tests
+    * ****************************************
+    */
+    [Test]
+    public void Should_Remove_Last_Item_In_List_If_NonEmpty()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        list.AddLast(10);
+        list.AddLast(15);
+
+        list.RemoveLast();
+
+        Assert.AreEqual(list.First.Value, 5);
+        Assert.AreEqual(list.First.Next.Value, 10);
+        Assert.AreEqual(list.Last.Prev.Value, 5);
+        Assert.AreEqual(list.Last.Value, 10);
+    }
+
+    [Test]
+    public void Should_Remove_Last_Item_In_List_If_Only_Head()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        list.RemoveLast();
+
+        Assert.IsNull(list.First);
+        Assert.IsNull(list.Last);
+    }
+
+    [Test]
+    public void Should_Throw_Error_On_RemoveLast_If_Empty()
+    {
+        LinkedList<int> list = new LinkedList<int>();
+
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            list.RemoveLast();
+        });
+    }
 }
