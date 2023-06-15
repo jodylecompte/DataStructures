@@ -77,18 +77,28 @@ public class LinkedListTest
         Node<int> newNode = new Node<int>(75);
 
         list.AddLast(25);
+        list.AddLast(targetNode);
+        list.AddLast(45);
         list.AddAfter(targetNode, newNode);
         list.AddLast(35);
 
-        //Assert.That(list.First, Is.Not.EqualTo(list.Last));
+        Assert.That(list.First, Is.Not.EqualTo(list.Last));
 
         // Ensure forward references are intact
-        //Assert.That(list.First.Value, Is.EqualTo(5));
-        //Assert.That(list.Last.Value, Is.EqualTo(10));
+        Assert.That(list.First.Value, Is.EqualTo(5));
+        Assert.That(list.First.Next.Value, Is.EqualTo(25));
+        Assert.That(list.First.Next.Next.Value, Is.EqualTo(20));
+        Assert.That(list.First.Next.Next.Next.Value, Is.EqualTo(75));
+        Assert.That(list.First.Next.Next.Next.Next.Value, Is.EqualTo(45));
+        Assert.That(list.First.Next.Next.Next.Next.Next.Value, Is.EqualTo(35));
 
         // Ensure backward references are intact
-        //Assert.That(list.First.Next.Value, Is.EqualTo(10));
-        //Assert.That(list.Last.Prev.Value, Is.EqualTo(5));
+        Assert.That(list.Last.Value, Is.EqualTo(35));
+        Assert.That(list.Last.Prev.Value, Is.EqualTo(45));
+        Assert.That(list.Last.Prev.Prev.Value, Is.EqualTo(75));
+        Assert.That(list.Last.Prev.Prev.Prev.Value, Is.EqualTo(20));
+        Assert.That(list.Last.Prev.Prev.Prev.Prev.Value, Is.EqualTo(25));
+        Assert.That(list.Last.Prev.Prev.Prev.Prev.Prev.Value, Is.EqualTo(5));
     }
 
     [Test]
@@ -129,7 +139,98 @@ public class LinkedListTest
         });
     }
 
-    
+    /*
+    * ****************************************
+    * AddBefore() Method Tests
+    * ****************************************
+    */
+    [Test]
+    public void Should_Add_New_Node_Before_Target_Node_On_AddBefore()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        Node<int> targetNode = new Node<int>(20);
+        Node<int> newNode = new Node<int>(75);
+
+        list.AddLast(25);
+        list.AddLast(targetNode);
+        list.AddLast(45);
+        list.AddBefore(targetNode, newNode);
+        list.AddLast(35);
+
+        Assert.That(list.First, Is.Not.EqualTo(list.Last));
+
+        // Ensure forward references are intact
+        Assert.That(list.First.Value, Is.EqualTo(5));
+        Assert.That(list.First.Next.Value, Is.EqualTo(25));
+        Assert.That(list.First.Next.Next.Value, Is.EqualTo(75));
+        Assert.That(list.First.Next.Next.Next.Value, Is.EqualTo(20));
+        Assert.That(list.First.Next.Next.Next.Next.Value, Is.EqualTo(45));
+        Assert.That(list.First.Next.Next.Next.Next.Next.Value, Is.EqualTo(35));
+
+        // Ensure backward references are intact
+        Assert.That(list.Last.Value, Is.EqualTo(35));
+        Assert.That(list.Last.Prev.Value, Is.EqualTo(45));
+        Assert.That(list.Last.Prev.Prev.Value, Is.EqualTo(20));
+        Assert.That(list.Last.Prev.Prev.Prev.Value, Is.EqualTo(75));
+        Assert.That(list.Last.Prev.Prev.Prev.Prev.Value, Is.EqualTo(25));
+        Assert.That(list.Last.Prev.Prev.Prev.Prev.Prev.Value, Is.EqualTo(5));
+    }
+
+    [Test]
+    public void Should_Add_New_Node_At_Head_On_AddBefore_For_Fresh_List()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        list.AddBefore(list.First, 10);
+
+        Assert.That(list.First, Is.Not.EqualTo(list.Last));
+
+        Assert.That(list.First.Value, Is.EqualTo(10));
+        Assert.That(list.Last.Value, Is.EqualTo(5));
+
+        Assert.That(list.First.Next.Value, Is.EqualTo(5));
+        Assert.That(list.Last.Prev.Value, Is.EqualTo(10));
+    }
+
+    [Test]
+    public void Should_Throw_Exception_On_AddBefore_When_Node_Is_Null()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+        Node<int> newNode = new Node<int>(10);
+
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+            list.AddBefore(null, newNode);
+        });
+    }
+
+    [Test]
+    public void Should_Throw_Exception_On_AddBefore_When_NewNode_Is_Null()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+        Node<int> targetNode = new Node<int>(10);
+
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+            list.AddBefore(targetNode, null);
+        });
+    }
+
+    [Test]
+    public void Should_Throw_Exception_On_AddBefore_When_Node_Is_Not_In_List()
+    {
+        LinkedList<int> list = new LinkedList<int>(5);
+
+        Node<int> targetNode = new Node<int>(10);
+        Node<int> newNode = new Node<int>(15);
+
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            list.AddBefore(targetNode, newNode);
+        });
+    }
+
     /*
     * ****************************************
     * AddFirst() Method Tests

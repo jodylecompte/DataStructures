@@ -44,28 +44,97 @@ namespace data_structures
                 throw new ArgumentNullException(nameof(newNode), "New node is null");
             }
 
-            // Edge case -- if list only has one item and target is head of list
-            if(this.First == this.Last && this.First == node)
+            // Edge case -- if list only has one item and target is head of the list
+            if (this.First == this.Last && this.First == node)
             {
                 this.First.Next = newNode;
                 newNode.Prev = this.First;
                 this.Last = newNode;
-                
 
                 this.Count++;
-                return node;
-            } else
+                return newNode;
+            }
+            else
             {
+                Node<T> iter = this.First;
+                while (iter != null)
+                {
+                    if (iter == node)
+                    {
+                        newNode.Next = iter.Next;
+                        newNode.Prev = iter;
+                        iter.Next = newNode;
 
+                        if (newNode.Next != null)
+                        {
+                            newNode.Next.Prev = newNode;
+                        }
+                        else
+                        {
+                            this.Last = newNode;
+                        }
+
+                        this.Count++;
+                        return newNode;
+                    }
+
+                    iter = iter.Next;
+                }
             }
 
-                           
             throw new InvalidOperationException("Node does not belong to the linked list");
         }
 
-        public void AddBefore()
-        {
 
+        public void AddBefore(Node<T> node, T value)
+        {
+            Node<T> newNode = new Node<T>(value);
+            this.AddBefore(node, newNode);
+        }
+
+        public Node<T> AddBefore(Node<T> node, Node<T> newNode)
+        {
+            if (node == null)
+            {
+                throw new ArgumentNullException(nameof(node), "Node is null");
+            }
+
+            if (newNode == null)
+            {
+                throw new ArgumentNullException(nameof(newNode), "New node is null");
+            }
+
+            // Edge case -- if list only has one item and target is the head of the list
+            if (this.First == node)
+            {
+                newNode.Next = node;
+                node.Prev = newNode;
+                this.First = newNode;
+
+                this.Count++;
+                return newNode;
+            }
+            else
+            {
+                Node<T> iter = this.First;
+                while (iter != null)
+                {
+                    if (iter.Next == node)
+                    {
+                        newNode.Next = node;
+                        newNode.Prev = iter;
+                        iter.Next = newNode;
+                        node.Prev = newNode;
+
+                        this.Count++;
+                        return newNode;
+                    }
+
+                    iter = iter.Next;
+                }
+            }
+
+            throw new InvalidOperationException("Node does not belong to the linked list");
         }
 
         /// <summary>
